@@ -34,27 +34,21 @@ algo.fit(trainset)
 @app.route('/', methods=['GET', 'POST'])
 def home():
     user_id = None
-    recommendations = None
+    recommendations = []
 
     if request.method == 'POST':
         user_id = request.form.get('user_input')
-        user_ratings = merged_data_sorted[merged_data_sorted['userId'] == user_id][['movieId', 'rating']]
-        print("User Ratings:")
-        print(user_ratings)
+        user_ratings = merged_data_sorted[merged_data_sorted['userId'] == int(user_id)][['movieId', 'rating']]
         movies_rated_by_user = user_ratings['movieId'].tolist()
         all_movie_ids = data.build_full_trainset().all_items()
         movies_to_predict = list(set(all_movie_ids) - set(movies_rated_by_user))
-        print("Movies to Predict:")
-        print(movies_to_predict)
-        user_predictions = [algo.predict(user_id, movie_id) for movie_id in movies_to_predict]
-        estimated_ratings = [prediction.est for prediction in user_predictions]
-        average_est_rating = sum(estimated_ratings) / len(estimated_ratings)
-        print("Average Estimated Rating:", average_est_rating)
+        user_predictions = [algo.predict(int(user_id), movie_id) for movie_id in movies_to_predict]
         user_predictions_sorted = sorted(user_predictions, key=lambda x: x.est, reverse=True)
         top_n = 5
         for i in range(min(top_n, len(user_predictions_sorted))):
             movie = user_predictions_sorted[i]
             movie_name = movies[movies['movieId'] == movie.iid]['title'].values[0]
+            recommendations.append(f"Movie ID: {movie.iid}, Estimated Rating: {movie.est}")
 
     return render_template('Website.html', user_id=user_id, recommendations=recommendations)
 
