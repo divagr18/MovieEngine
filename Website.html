@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 60%;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Movie Recommender</h1>
+    </header>
+
+    <main>
+        <h2>Find Your Next Favorite Movie</h2>
+        <form id="recommendationForm">
+            <input type="text" id="genreInput" placeholder="Enter your favorite genre">
+            <input type="submit" value="Get Recommendations">
+        </form>
+
+        <div id="recommendations">
+            <!-- Movie recommendations will be displayed here -->
+        </div>
+    </main>
+
+    <script>
+        // You can add JavaScript to handle form submission and display movie recommendations here
+        document.getElementById("recommendationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            // Add your logic to handle form submission and display movie recommendations
+            // You can use AJAX, fetch, or any other method to communicate with the backend.
+        });
+    </script>
+
+</body>
+</html>
