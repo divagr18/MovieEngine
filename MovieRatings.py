@@ -4,7 +4,7 @@ from surprise import Reader, Dataset, SVD
 from surprise.model_selection import train_test_split
 import pandas as pd
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 # Function to get movie cover image URL (you can keep this function)
 # Load data and train SVD model (you can keep this code)
