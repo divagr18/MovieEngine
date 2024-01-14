@@ -3,12 +3,9 @@ frontend:
   runtime-versions:
     python: 3.9
   phases:
-    setup:
-      commands:
-        - apt-get update
-        - apt-get install -y python3.9 python3-pip
     preBuild:
       commands:
+        - python3 -m pip install --upgrade pip
         - python3 -m pip install -r requirements.txt
         - echo "PreBuild completed"
   build:
@@ -18,3 +15,7 @@ frontend:
   artifacts:
     baseDirectory: .
     files:
+      - '**/*'
+  cache:
+    paths:
+      - ~/.cache/pip
