@@ -3,26 +3,18 @@ frontend:
   runtime-versions:
     python: 3.9
   phases:
-    preBuild:
+    setup:
       commands:
         - apt-get update
-        - apt-get install -y python3.9
-        - update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
-        - python3 --version
-        - python3 -m ensurepip --default-pip
-        - apt-get install -y python3-pip  # Add this line to install pip
-        - pip3 --version  # Add this line to print pip version
+        - apt-get install -y python3.9 python3-pip
+    preBuild:
+      commands:
         - python3 -m pip install -r requirements.txt
-        - python3 -m pip install Flask
-
+        - echo "PreBuild completed"
   build:
     commands:
+      - echo "Build started"
       - flask --app MovieRatings.py
   artifacts:
     baseDirectory: .
     files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-      - public/**/*
