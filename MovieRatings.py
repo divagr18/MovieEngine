@@ -21,7 +21,6 @@ columns_to_drop = ['timestamp_x', 'timestamp_y', 'tag']
 merged_data_sorted.drop(columns=columns_to_drop, inplace=True)
 
 merged_data_sorted = merged_data_sorted.dropna(subset=['userId', 'movieId', 'rating'])
-print("hello")
 print(merged_data_sorted)
 merged_data_sorted['userId'] = merged_data_sorted['userId'].astype(int)
 merged_data_sorted['movieId'] = merged_data_sorted['movieId'].astype(int)
