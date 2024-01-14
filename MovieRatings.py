@@ -48,7 +48,7 @@ def home():
         for i in range(min(top_n, len(user_predictions_sorted))):
             movie = user_predictions_sorted[i]
             movie_name = movies[movies['movieId'] == movie.iid]['title'].values[0]
-            recommendations.append(f"Movie ID: {movie.iid}, Estimated Rating: {movie.est}")
+            recommendations.append(f"Movie Name: {movie_name}, Estimated Rating: {movie.est}")
 
     return render_template('index.html', user_id=user_id, recommendations=recommendations)
 
