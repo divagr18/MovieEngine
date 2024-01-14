@@ -50,7 +50,7 @@ def home():
             movie_name = movies[movies['movieId'] == movie.iid]['title'].values[0]
             recommendations.append(f"Movie ID: {movie.iid}, Estimated Rating: {movie.est}")
 
-    return render_template('Website.html', user_id=user_id, recommendations=recommendations)
+    return render_template('index.html', user_id=user_id, recommendations=recommendations)
 
 if __name__ == '__main__':
     app.run(debug=True)
