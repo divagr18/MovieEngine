@@ -1,0 +1,21 @@
+version: 0.2
+
+frontend:
+  runtime-versions:
+    python: 3.8
+  phases:
+    preBuild:
+      commands:
+        - pip install -r requirements.txt
+        - python -m pip install Flask
+    build:
+      commands:
+        - flask --app MovieRatings.py
+  artifacts:
+    baseDirectory: .
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - public/**/*
