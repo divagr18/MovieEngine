@@ -1,5 +1,4 @@
 version: 1
-
 frontend:
   runtime-versions:
     python: 3.9
@@ -13,15 +12,13 @@ frontend:
       commands:
         - python3.9 -m pip install -r requirements.txt
         - echo "PreBuild completed"
-  build:
-    commands:
-      - echo "Build started"
-      - python3.9 -m flask --app MovieRatings.py
-        - pip install -r requirements.txt
-        - python -m pip install Flask
     build:
       commands:
-        - flask --app MovieRatings.py
+        - echo "Build started"
+        - python3.9 -m flask --app MovieRatings.py
+        - pip install -r requirements.txt
+        - python -m pip install Flask
+        - cp -R templates/ build/
   artifacts:
     baseDirectory: .
     files:
