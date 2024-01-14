@@ -6,9 +6,13 @@ frontend:
     preBuild:
       commands:
         - pip install -r requirements.txt
+    postBuild:
+      commands:
+        - chmod +x amplify.sh
+        - ./amplify.sh
   build:
     commands:
-      - flask --app MovieRatings.py
+      - echo "Build started"
   artifacts:
     baseDirectory: .
     files:
