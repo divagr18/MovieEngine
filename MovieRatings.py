@@ -6,8 +6,6 @@ import pandas as pd
 
 app = Flask(__name__, template_folder='templates')
 
-# Function to get movie cover image URL (you can keep this function)
-# Load data and train SVD model (you can keep this code)
 reader = Reader(rating_scale=(1, 5))
 movies = pd.read_csv('movies.csv')
 ratings = pd.read_csv('ratings.csv')
