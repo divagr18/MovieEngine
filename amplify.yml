@@ -13,6 +13,7 @@ frontend:
       commands:
         - python3.9 -m pip install -r requirements.txt
         - echo "PreBuild completed"
+        - ./scripts/download_parquet.sh
   build:
     commands:
       - echo "Build started"
