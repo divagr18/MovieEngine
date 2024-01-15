@@ -1,33 +1,17 @@
 from flask import Flask, render_template, request
 import surprise
-from surprise import Reader, Dataset, SVD
+from surprise import Reader, Dataset, SVD, dump
 from surprise.model_selection import train_test_split
 import pandas as pd
 
 app = Flask(__name__, template_folder='templates')
-
 reader = Reader(rating_scale=(1, 5))
 movies = pd.read_csv('movies.csv')
 ratings = pd.read_csv('ratings.csv')
-tags = pd.read_csv('tags.csv')
-ratings_tags_merged = pd.merge(ratings, tags, on=['userId', 'movieId'], how='outer')
-merged_data = pd.merge(ratings_tags_merged, movies, on='movieId')
-
-merged_data_sorted = merged_data.sort_values(by='userId', ascending=True)
-columns_to_drop = ['timestamp_x', 'timestamp_y', 'tag']
-
-merged_data_sorted.drop(columns=columns_to_drop, inplace=True)
-
-merged_data_sorted = merged_data_sorted.dropna(subset=['userId', 'movieId', 'rating'])
-print(merged_data_sorted)
-merged_data_sorted['userId'] = merged_data_sorted['userId'].astype(int)
-merged_data_sorted['movieId'] = merged_data_sorted['movieId'].astype(int)
-merged_data_sorted['rating'] = merged_data_sorted['rating'].astype(int)
+merged_data_sorted = pd.read_parquet('smalldata.parquet')
 data = Dataset.load_from_df(merged_data_sorted[['userId', 'movieId', 'rating']], reader)
-trainset, testset = train_test_split(data, test_size=0.25)
-algo = SVD(n_factors=100, reg_all=0.02, lr_all=0.005, biased=False)
-algo.fit(trainset)
-
+loaded_data = dump.load('algorithm.pkl')
+algo, trainset = loaded_data[0], loaded_data[1]
 @app.route('/', methods=['GET', 'POST'])
 def home():
     user_id = None
