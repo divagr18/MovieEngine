@@ -9,6 +9,10 @@ frontend:
         - apt-get update
         - apt-get install -y python3.9 python3-pip
         - python3.9 -m pip install --upgrade pip
+        - apt-get install -y unzip
+        - curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        - unzip awscliv2.zip
+        - sudo ./aws/install
     preBuild:
       commands:
         - python3.9 -m pip install -r requirements.txt
@@ -20,7 +24,6 @@ frontend:
       - python3.9 -m flask --app MovieRatings.py
         - pip install -r requirements.txt
         - python -m pip install Flask
-        - cp -R templates/ build/
     build:
       commands:
         - flask --app MovieRatings.py
