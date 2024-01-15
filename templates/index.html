@@ -5,24 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Recommendations</title>
+    <style>
+        /* Add some basic styles for better presentation */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>Movie Recommendations</h1>
 
-    <form method="post" action="{{ url_for('home') }}">
+    <form method="post" action="{{ url_for('home') }}" onsubmit="return validateForm()">
         <label for="user_input">Enter User ID:</label>
         <input type="text" id="user_input" name="user_input" required>
         <br>
         <input type="submit" value="Get Recommendations">
     </form>
 
-    {% if user_id %}
-        <h2>Recommendations for User {{ user_id }}</h2>
-        <ul>
-            {% for recommendation in recommendations %}
-                <li>{{ recommendation }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div id="recommendations" style="display: none;">
+        {% if user_id %}
+            <h2>Recommendations for User {{ user_id }}</h2>
+            <ul id="recommendationList">
+                {% for recommendation in recommendations %}
+                    <li>{{ recommendation }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <script>
+        function validateForm() {
+            // Basic validation for user input
+            var userInput = document.getElementById('user_input').value.trim();
+            if (!userInput || isNaN(userInput)) {
+                alert('Please enter a valid User ID.');
+                return false;
+            }
+
+            // Show the recommendations section after form submission
+            document.getElementById('recommendations').style.display = 'block';
+
+            // You can also add more logic here if needed
+
+            return true;
+        }
+    </script>
 </body>
 </html>
