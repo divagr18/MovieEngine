@@ -18,8 +18,6 @@ frontend:
         - python3.9 -m pip install -r requirements.txt
         - echo "PreBuild completed"
         - chmod +x ./download_parquet.sh
-        - export AWS_ACCESS_KEY_ID=AKIA5FTY72FPJ5F67LQP
-        - export AWS_SECRET_ACCESS_KEY=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
         - ./download_parquet.sh
   build:
     commands:
