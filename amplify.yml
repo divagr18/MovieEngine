@@ -1,0 +1,36 @@
+version: 1
+
+frontend:
+  runtime-versions:
+    python: 3.9
+  phases:
+    setup:
+      commands:
+        - apt-get update
+        - apt-get install -y python3.9 python3-pip
+        - python3.9 -m pip install --upgrade pip
+        - apt-get install -y unzip
+        - curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        - unzip awscliv2.zip
+        - sudo ./aws/install
+    preBuild:
+      commands:
+        - python3.9 -m pip install -r requirements.txt
+        - echo "PreBuild completed"
+        - chmod +x ./download_parquet.sh
+        - export AWS_ACCESS_KEY_ID=AKIA5FTY72FPJ5F67LQP
+        - export AWS_SECRET_ACCESS_KEY=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
+        - ./download_parquet.sh
+    build:
+      commands:
+        - echo "Build started"
+        - python3.9 manage.py collectstatic --noinput
+  artifacts:
+    baseDirectory: .
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - ~/.cache/pip
+      - node_modules/**/*
+      - public/**/*
