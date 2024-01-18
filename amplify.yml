@@ -13,12 +13,11 @@ frontend:
         - curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
         - unzip awscliv2.zip
         - sudo ./aws/install
+        - aws s3 cp s3://divmovie/algorithm.pkl .
     preBuild:
       commands:
         - python3.9 -m pip install -r requirements.txt
         - echo "PreBuild completed"
-        - chmod +x ./download_parquet.sh
-        - aws s3 cp s3://divmovie/algorithm.pkl .
     build:
       commands:
         - echo "Build started"
